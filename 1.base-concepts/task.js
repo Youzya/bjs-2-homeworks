@@ -11,3 +11,13 @@ function solveEquation(a, b, c) {
     arr[0] = (-b + Math.sqrt(d)) / (2 * a);
     arr[1] = (-b - Math.sqrt(d)) / (2 * a);
   }
+  // код для задачи №1 писать здесь
+  return arr; // array
+}
+
+function calculateTotalMortgage() {
+
+  // код для задачи №2 писать здесь
+
+  return totalAmount;
+}
