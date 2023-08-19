@@ -56,4 +56,4 @@ describe('Домашнее задание к занятию 1. «Основны�
 					expect(calculateTotalMortgage(15, 0, 10000, nextYearDate)).toEqual(12479.52);
 				});
 			});
-});
+};
