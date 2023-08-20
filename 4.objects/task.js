@@ -3,9 +3,9 @@ function Student(name, gender, age) {
   this.gender = gender;
   this.age = age;
 }
-  const student1 = new Student("Артём", "male", 23);
-  const student2 = new Student("Андрей", "male", 30);
-  const student3 = new Student("Наталья", "female", 27);
+  const student1 = new Student("Шурик", "male", 29);
+  const student2 = new Student("Володя", "male", 30);
+  const student3 = new Student("Вика", "female", 18);
 
 Student.prototype.setSubject = function(subjectName) {
   this.subject = subjectName;
