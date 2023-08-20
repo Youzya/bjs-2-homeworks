@@ -1,12 +1,12 @@
 describe("Домашнее задание к занятию 4 «Объекты»", () => {
   describe("Задача №1 Инкапсуляция студента", () => {
-    let student1 = new Student("Артём", "male", 23);
+    let student1 = new Student("Tony", "male", 37);
     student1.setSubject("Algebra");
     student1.addMark(5);
     student1.addMark(4); 
     student1.addMark(5);
     
-    let student2 = new Student("Наталия", "female", 35);
+    let student2 = new Student("Buzz", "female", 35);
     student2.setSubject("Geometry");
     student2.addMarks(2,3,2);
 
