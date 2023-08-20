@@ -31,7 +31,7 @@ Student.prototype.addMarks = function ( ...args) {
 
 Student.prototype.getAverage = function () {
   let sum = this.marks.reduce((sum, current) => sum + current)  
-  this.mediumAriphetic = sum / this.marks.length // для окргление в не рамок задания Number((sum / this.marks.length).toFixed(2))
+  this.mediumAriphetic = sum / this.marks.length
   return this.mediumAriphetic
 };
 
@@ -47,13 +47,13 @@ artem.addMark(5);
 artem.addMark(4);
 artem.addMarks(4,4,3,5,4,3,4);
 artem.getAverage();
-artem.exclude("балбес");
+artem.exclude("Хорошая успеваемость");
 
 petya.addMark(2);
 petya.addMark(3);
 petya.addMarks(2,3,2,2,2,3,2);
 petya.getAverage();
-petya.exclude("плохая успеваемость");
+petya.exclude("Плохая успеваемость");
 
 console.log(artem);
 console.log(petya);
