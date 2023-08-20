@@ -3,46 +3,57 @@ function Student(name, gender, age) {
   this.gender = gender;
   this.age = age;
 }
-  const student1 = new Student("Шурик", "male", 29);
-  const student2 = new Student("Володя", "male", 30);
-  const student3 = new Student("Вика", "female", 18);
 
-Student.prototype.setSubject = function(subjectName) {
+let artem = new Student("Артем", "male", 29)
+let petya = new Student("Петя", "male", 33)
+
+Student.prototype.setSubject = function (subjectName) {
   this.subject = subjectName;
-}
+};
 
-Student.prototype.addMark = function(mark) {
-  if(this.marks === undefined){
-    this.marks = [mark];
+Student.prototype.addMark = function (mark) {
+  if (this.marks === undefined) {
+    this.marks = [];
+    this.marks.push(mark);
   } else {
     this.marks.push(mark);
   }
-}
+};
 
-Student.prototype.addMarks = function(...spr) {
-  if(this.marks === undefined){
-    this.marks = spr;
+Student.prototype.addMarks = function ( ...args) {
+  if (this.marks === undefined) {
+    this.marks = [];
+    args.map(el => this.marks.push(el));
   } else {
-    this.marks.push(...spr);
+    args.map(el => this.marks.push(el));
   }
-}
+};
 
-Student.prototype.getAverage = function() {
-  if(this.marks.length === 0){
-    return 0;
-  } else {
-    let sum = 0;
-    let count = 0;
-      for (let i = 0; i < this.marks.length; i++){
-       count += 1;
-       sum += this.marks[i];
-      }
-    return sum/count
-  }
-}
+Student.prototype.getAverage = function () {
+  let sum = this.marks.reduce((sum, current) => sum + current)  
+  this.mediumAriphetic = sum / this.marks.length // для окргление в не рамок задания Number((sum / this.marks.length).toFixed(2))
+  return this.mediumAriphetic
+};
 
-Student.prototype.exclude = function(reason) {
+Student.prototype.exclude = function (reason) {
   delete this.subject;
   delete this.marks;
   this.excluded = reason;
-}
+};
+
+//                                Проверка node                    
+
+artem.addMark(5);
+artem.addMark(4);
+artem.addMarks(4,4,3,5,4,3,4);
+artem.getAverage();
+artem.exclude("балбес");
+
+petya.addMark(2);
+petya.addMark(3);
+petya.addMarks(2,3,2,2,2,3,2);
+petya.getAverage();
+petya.exclude("плохая успеваемость");
+
+console.log(artem);
+console.log(petya);
