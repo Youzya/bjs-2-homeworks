@@ -1,61 +1,41 @@
-
-
 function Student(name, gender, age) {
   this.name = name;
   this.gender = gender;
   this.age = age;
+  this.marks = [];
 }
 
-let artem = new Student("Артем", "male", 29)
-let petya = new Student("Петя", "male", 33)
+const student1 = new Student("Vasylisa", "female", 19);
+const student2 = new Student("Artem", "male", 18);
 
 Student.prototype.setSubject = function (subjectName) {
   this.subject = subjectName;
-};
+}
 
-Student.prototype.addMark = function (mark) {
-  if (this.marks === undefined) {
-    this.marks = [];
-    this.marks.push(mark);
-  } else {
-    this.marks.push(mark);
+Student.prototype.addMarks = function (...marks) {
+  if (this.excluded) {
+    return;
   }
-};
+  this.marks.push(...marks);
+}
 
-Student.prototype.addMarks = function ( ...args) {
-  if (this.marks === undefined) {
-    this.marks = [];
-    args.map(el => this.marks.push(el));
-  } else {
-    args.map(el => this.marks.push(el));
-  }
-};
-
-Student.prototype.getAverage = function () {
-  let sum = this.marks.reduce((sum, current) => sum + current)  
-  this.mediumAriphetic = sum / this.marks.length
-  return this.mediumAriphetic
-};
+Student.prototype.getAverage = function() {
+    if (this.marks === undefined || this.marks.length === 0) {
+      return 0;
+    }
+  
+    let total = 0;
+    for (let i = 0; i < this.marks.length; i++) {
+      total += this.marks[i];
+    }
+  
+    let average = total / this.marks.length;
+    return average;
+  };
+  
 
 Student.prototype.exclude = function (reason) {
-  delete this.subject;
-  delete this.marks;
-  this.excluded = reason;
-};
-
-//                                Проверка node                    
-
-artem.addMark(5);
-artem.addMark(4);
-artem.addMarks(4,4,3,5,4,3,4);
-artem.getAverage();
-artem.exclude("Хорошая успеваемость");
-
-petya.addMark(2);
-petya.addMark(3);
-petya.addMarks(2,3,2,2,2,3,2);
-petya.getAverage();
-petya.exclude("Плохая успеваемость");
-
-console.log(artem);
-console.log(petya);
+    delete this.marks;
+    delete this.subject;
+    this.excluded = reason;
+}
