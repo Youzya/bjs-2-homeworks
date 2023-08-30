@@ -1,142 +1,137 @@
-describe('Домашнее задание к лекции 5 «Классы»', () => {
+// 1 задача
+class PrintEditionItem {
+	_state = 100;
+	type = null;
 
-    describe('Задача №1', () => {
-      let printItem;
-  
-      beforeEach(function(){
-        printItem = new PrintEditionItem('Типовой школьный журнал', 2019, 102);
-      });
-  
-      it('создание печатного издания', () => {
-        expect(printItem).toBeDefined();
-        expect(printItem.name).toEqual('Типовой школьный журнал');
-        expect(printItem.releaseDate).toEqual(2019);
-        expect(printItem.pagesCount).toEqual(102);
-        expect(printItem.state).toEqual(100);
-        expect(printItem.type).toEqual(null);
-      });
-  
-      it('починка почти целого печатного издания (ограничение сеттером state)', () => {
-        printItem.state = 90;
-        printItem.fix();
-        expect(printItem.state).toEqual(100);
-      });
-  
-      it('починка печатного издания', () => {
-        printItem.state = 50;
-        printItem.fix();
-        expect(printItem.state).toEqual(75);
-      });
-  
-      it('геттер для свойства state', () => {
-        printItem.state = 10;
-        const spy = spyOnProperty(printItem, 'state', 'get').and.returnValue(10);
-        expect(printItem.state).toBe(10);
-        expect(spy).toHaveBeenCalled();
-      });
-      
-      it('сеттер для свойства state', () => {
-        const spy = spyOnProperty(printItem, 'state', 'set');
-        printItem.state = 10;
-        expect(spy).toHaveBeenCalled();
-      });
-  
-      it('создание объекта Magazine', () => {
-        printItem = new Magazine('Forbes', 2020, 180);
-        expect(printItem.type).toEqual("magazine");
-      });
-      
-      it('создание объекта Book', () => {
-        printItem = new Book('А. Сапковский', 'Меч Предназначения', 1992, 384);
-        expect(printItem.author).toEqual('А. Сапковский');
-        expect(printItem.name).toEqual('Меч Предназначения');
-        expect(printItem.releaseDate).toEqual(1992);
-        expect(printItem.pagesCount).toEqual(384);
-        expect(printItem.type).toEqual('book');
-      });
-  
-      it('создание объекта NovelBook', () => {
-        printItem = new NovelBook('А. Сапковский', 'Меч Предназначения', 1992, 384);
-        expect(printItem.author).toEqual('А. Сапковский');
-        expect(printItem.type).toEqual('novel');
-      });
-      
-      it('создание объекта FantasticBook', () => {
-        printItem = new FantasticBook('Джон Толкин', 'Властелин колец', 1954, 2093);
-        expect(printItem.author).toEqual('Джон Толкин');
-        expect(printItem.type).toEqual('fantastic');
-      });
-      
-      it('создание объекта DetectiveBook', () => {
-        printItem = new DetectiveBook('Агата Кристи', 'Десять негритят', 2019, 256);
-        expect(printItem.author).toEqual('Агата Кристи');
-        expect(printItem.type).toEqual('detective');
-      });
-    });
-  
-    describe('Задача №2', () => {
-      let library, printItem;
-    
-      beforeEach(function(){
-        library = new Library('Библиотека имени Ленина');
-        printItem = new PrintEditionItem('Типовой школьный журнал', 2019, 102);
-      });
-  
-      it('создание библиотеки', () => {
-        expect(library).toBeDefined();
-        expect(library.name).toEqual('Библиотека имени Ленина');
-        expect(library.books).toEqual(jasmine.any(Array));
-      });
-      
-      it('добавление книги', () => {
-        library.addBook(printItem);
-        expect(library.books[0].name).toEqual('Типовой школьный журнал');
-        expect(library.books.length).toEqual(1);
-      });
-      
-      it('поиск книги', () => {
-        const printItemAdditional = new PrintEditionItem('Блокнот для заметок', 2021, 100);
-        library.addBook(printItemAdditional);
-        library.addBook(printItem);
-        const firstBook = library.findBookBy("releaseDate", 2019);
-        expect(firstBook.name).toEqual('Типовой школьный журнал');
-        const secondBook = library.findBookBy("releaseDate", 2154);
-        expect(secondBook).toEqual(null);
-      });
-      
-      it('выдача книги', () => {
-        library.addBook(printItem);
-        const firstBook = library.giveBookByName('Типовой школьный журнал');
-        expect(firstBook.name).toEqual('Типовой школьный журнал');
-        expect(library.books.length).toEqual(0);
-        const secondBook = library.giveBookByName('Судовой журнал');
-        expect(secondBook).toEqual(null);
-      });
-    })
-  
-    describe('Задача №3', () => {
-      let student;
-    
-      beforeEach(function(){
-        student = new Student("Иван Петров");
-      });
-  
-      it('создание объекта Student', () => {
-        expect(student).toBeDefined();
-      });
-  
-      it('подсчёт средней оценки по предмету', () => {
-        student.addMark(3, "algebra");
-        student.addMark(5, "algebra");
-        expect(student.getAverageBySubject("algebra")).toEqual(4);
-      });
-  
-      it('подсчёт общей средней оценки', () => {
-        student.addMark(3, "algebra");
-        student.addMark(5, "algebra");
-        student.addMark(5, "history");
-        student.addMark(5, "history");
-        expect(student.getAverage()).toEqual(4.5);
-      });
-    });
-  });
+	constructor(name, releaseDate, pagesCount) {
+		this.name = name;
+		this.releaseDate = releaseDate;
+		this.pagesCount = pagesCount;
+	}
+
+	fix() {
+		this.state = this.state * 1.5;
+	}
+
+	set state(stateNubmer) {
+		if (stateNubmer > 100) {
+			this._state = 100;
+		} else if (this.state < 0) {
+			this._state = 0;
+		} else {
+			this._state = stateNubmer;
+		}
+	}
+
+	get state() {
+		return this._state;
+	}
+}
+
+class Magazine extends PrintEditionItem {
+	constructor(name, releaseDate, pagesCount) {
+		super(name, releaseDate, pagesCount);
+	}
+	type = "magazine";
+}
+
+class Book extends Magazine {
+	constructor(author, name, releaseDate, pagesCount) {
+		super(name, releaseDate, pagesCount);
+		this.author = author;
+	}
+	type = "book";
+}
+
+class NovelBook extends Book {
+	type = "novel";
+}
+class FantasticBook extends Book {
+	type = "fantastic";
+}
+class DetectiveBook extends Book {
+	type = "detective";
+}
+
+
+// 2 задача
+class Library {
+	books = [];
+
+	constructor(name) {
+		this.name = name;
+	}
+
+	addBook(book) {
+		(book.state > 30) ? this.books.push(book): this.books.push(null);
+	}
+
+	findBookBy(type, value) {
+		let bookIndex = this.books.findIndex((item) => item[type] === value);
+		return this.books[bookIndex] = (bookIndex != -1) ? this.books[bookIndex] : null;
+	}
+
+	giveBookByName(bookName) {
+		let bookIndex = this.books.findIndex((item) => item.name === bookName);
+		if (bookIndex != -1) {
+			let bookReturn = this.books[bookIndex];
+			this.books.splice([bookIndex], [1]);
+			return bookReturn;
+		} else {
+			return null;
+		}
+	}
+}
+
+// 3 задача
+class Student {
+	marks = {};
+
+	constructor(name, gender, age) {
+		this.name = name;
+		this.gender = gender;
+		this.age = age;
+	}
+
+	addMark(mark, discipline) {
+		if (mark < 1 || mark > 5) {
+			return console.log('Ошибка, оценка должна быть числом от 1 до 5');
+		} else if (this.marks[discipline] != undefined) {
+			this.marks[discipline].push(mark);
+		} else {
+			this.addDiscipline(discipline);
+			this.marks[discipline].push(mark);
+		}
+	}
+
+	addDiscipline(discipline) {
+		this.marks[discipline] = [];
+	}
+
+	getAverageBySubject(discipline) {
+		if (this.marks[discipline] != undefined || this.marks[discipline].length > 0) {
+			let sum = this.marks[discipline].reduce((acc, item) => acc += item);
+			return sum / this.marks[discipline].length
+		} else if (this.marks[discipline] != undefined || this.marks[discipline].length === 0) {
+			return console.log('оценок нет');
+		} else {
+			return console.log(`Предмета ${discipline} не существует`);
+		}
+	}
+
+	getAverage() {
+		let length = 0;
+		let sum = 0;
+		for (let key in this.marks) {
+			sum += this.marks[key].reduce((acc, item) => acc += item);
+			length += this.marks[key].length;
+		}
+		return sum / length
+	}
+
+	exclude(reason) {
+		delete this.marks;
+		this.excluded = reason;
+		console.log(reason);
+	}
+}
